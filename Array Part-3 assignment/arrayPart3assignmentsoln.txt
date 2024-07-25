@@ -1,0 +1,128 @@
+Ques-1:   Count the number of triplets whose sum is equal to the given value x.
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int Counttriplets(int arr1[],int n1,int x1){
+    int l,r;
+    int count = 0;
+
+    sort(arr1,arr1+n1);
+
+
+    for(int i=0;i < n1;i++){
+
+        l = i+1;
+        r = n1-1;
+
+        while(l < r){
+            if((arr1[i] + arr1[l] + arr1[r]) == x1){
+                count ++;
+                l++;
+                r--;
+            }
+            else if((arr1[i] + arr1[l] + arr1[r]) < x1){
+                l++;
+            }
+            else r--;
+        }
+    }
+    return count;
+}
+int main(){
+    int arr[7] = {1,2,4,3,6,5,7};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    int x;
+    cout << "Enter the Integer: ";
+    cin >> x;
+    cout << "No. of triplets: " << Counttriplets(arr,n,x);
+}
+
+
+Ques-2:   Find the factorial of a large number.
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int multiply(vector<int>& res,int value,int size){
+    int carry = 0;
+    for(int i = 0;i < size;i++){
+        int prodcut = res[i]*value + carry;
+        res[i] = prodcut % 10;
+        carry = prodcut / 10;
+    }
+    while(carry){
+        res[size] = carry % 10;
+        carry /= 10;
+        size++; 
+    }
+    return size;
+}
+int main(){
+    int x;
+    cout << "Enter the number: ";
+    cin >> x;
+    vector<int> result(500,0); // it should not contain garbage value.
+    int size = 1;
+    result[0] = 1;
+    for(int i = 2;i <= x;i++){
+        size = multiply(result,i,size);
+    }
+    for(int i = size-1;i>=0;i--){
+        cout << result[i];
+    }
+}
+
+
+Ques-3:   find the fisrt non-repeating element in the array.
+
+#include<iostream>
+using namespace std;
+int Nonrepeat(int a[],int n){
+    for(int i = 0;i < n;i++){
+        bool flag = true; // single element present;
+        for(int j = 0;j < n;j++){
+            if(i != j && a[i] == a[j]){
+                flag = false;
+                break;
+            }
+        }
+        if(flag == true) return a[i];
+    }
+}
+int main(){
+    int arr[] = {3,4,3,5,6,5,6};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    cout << "The non-repeating element is : "<< Nonrepeat(arr,n);
+}
+
+
+Ques-4:   Check if an array is subset of another array or not.
+
+#include <iostream>
+using namespace std;
+string isSubset(int a1[], int a2[], int n, int m) {
+    int j = 0; // Initialize j to 0
+    
+    for (int i = 0; i < n && j < m; i++) {
+        if (a1[i] == a2[j]) {
+            j++;
+        }
+    }
+    
+    if (j == m) {
+        return "YES";
+    } else {
+        return "NO";
+    }
+}
+int main() {
+    int a1[] = {11, 1, 13, 21, 3, 7};
+    int a2[] = {11,1,3,7};
+    int n = sizeof(a1) / sizeof(a1[0]);
+    int m = sizeof(a2) / sizeof(a2[0]);
+    string result = isSubset(a1, a2, n, m);
+    cout << result << endl; 
+}
+
+
